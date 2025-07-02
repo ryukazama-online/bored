@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/ektp", "dest": "/api/ektp.js" }
+  ]
+}
