@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cek NIK e-KTP</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #58a6ff;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #30363d;
+      background-color: #161b22;
+      color: #c9d1d9;
+    }
+
+    input {
+      width: 280px;
+    }
+
+    button {
+      background-color: #238636;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2ea043;
+    }
+
+    pre {
+      background: #161b22;
+      padding: 1em;
+      border-radius: 5px;
+      max-width: 90%;
+      overflow-x: auto;
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #8b949e;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Cek Data</h1>
+  <input type="text" id="nik" placeholder="Masukkan NIK..."/>
+  <button onclick="cekNIK()">Cek</button>
+
+  <pre id="hasil">Hasil akan tampil di sini...</pre>
+
+  <footer>© 2025 Made by Pio</footer>
+
+  <script>
+    async function cekNIK() {
+      const nik = document.getElementById('nik').value;
+      const hasil = document.getElementById('hasil');
+      hasil.textContent = 'Memuat...';
+
+      if (!nik) {
+        hasil.textContent = 'Masukkan NIK terlebih dahulu.';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/ektp?nik=${nik}`);
+        const data = await res.json();
+        hasil.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        hasil.textContent = 'Terjadi kesalahan saat mengambil data.';
+      }
+    }
+  </script>
+</body>
+</html>
